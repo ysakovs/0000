@@ -18,8 +18,6 @@ export default {
   },
   methods: {
     register() {
-      console.log("asdfasd");
-
       Authentication.register({ email: this.email, password: this.password });
     }
   }
