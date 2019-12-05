@@ -4,6 +4,7 @@
     <input type="email" v-model="email" />
     <input type="password" v-model="password" />
     <button @click="register">Register</button>
+    <h1>{{error}}</h1>
   </div>
 </template>
 
@@ -13,12 +14,20 @@ export default {
   data() {
     return {
       email: "type email here",
-      password: ""
+      password: "",
+      error: ""
     };
   },
   methods: {
-    register() {
-      Authentication.register({ email: this.email, password: this.password });
+    async register() {
+      try {
+        await Authentication.register({
+          email: this.email,
+          password: this.password
+        });
+      } catch (error) {
+        this.error = error.response.data.error;
+      }
     }
   }
 };

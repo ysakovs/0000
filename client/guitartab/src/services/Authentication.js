@@ -5,7 +5,6 @@ export default
         async register(credentials)
         {
             var result = await Api().post('register', credentials);
-            console.log(result);
-
+            return result;
         }
     }
