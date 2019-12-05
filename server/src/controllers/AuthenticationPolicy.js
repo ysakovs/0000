@@ -10,8 +10,6 @@ module.exports = {
         };
         const { error, value } = Joi.validate(req.body, schema);
 
-        console.log(Joi.validate(req.body, schema).error.details);
-
         if (error)
         {
             res.status(400);
