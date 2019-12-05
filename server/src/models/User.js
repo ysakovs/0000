@@ -1,6 +1,6 @@
 module.exports = (sequalize, Datatypes) =>
 {
-    sequalize.define('User',
+    return sequalize.define('User',
         {
             email: {
                 type: Datatypes.STRING,

@@ -12,18 +12,10 @@ const sequelize = new Sequelize(
 )
 
 const models = fs.readdirSync(__dirname)
-    .filter(x => !__filename.endsWith(x));
+    .filter(x => !__filename.endsWith(x))
+    .map(x => sequelize.import(path.join(__dirname, x)));
 
-models.forEach(x =>
-{
-    db[x] = sequelize.import(path.join(__dirname, x));
-    //CRAZY syntax (requirs return and { to be on same line)
-    // return {
-    //     name: x,
-    //     launches: 
-    // }
-}
-);
+models.forEach(x => db[x.name] = x);
 
 db.sequelize = sequelize;
 module.exports = db;
