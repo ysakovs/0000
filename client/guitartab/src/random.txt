@@ -1,0 +1,9 @@
+<template>
+  <div class="d-flex align-center">
+    <h1>Register</h1>
+    <input type="email" v-model="email" />
+    <input type="password" v-model="password" />
+    <button @click="register">Register</button>
+    <h1>{{error}}</h1>
+  </div>
+</template>
