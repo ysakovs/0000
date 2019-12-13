@@ -6,5 +6,8 @@ export default
         {
             var result = await Api().post('register', credentials);
             return result;
+        },
+        async login()
+        {
         }
     }
