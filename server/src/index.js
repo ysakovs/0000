@@ -13,7 +13,7 @@ app.use(express.json());
 
 require('./routes')(app)
 
-sequelize.sync({ force: false })
+sequelize.sync({ force: false }) //change to true to drop database
     .then(() =>
     {
         app.listen(config.PORT, () =>
