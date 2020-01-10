@@ -20,6 +20,8 @@
                   />
                 </v-form>
               </v-card-text>
+              <Success :good="success" />
+              <Error :errorMessage="error" />
               <v-card-actions>
                 <v-spacer />
                 <v-btn @click="register" color="primary">Register</v-btn>
@@ -34,21 +36,37 @@
 
 <script>
 import Authentication from "@/services/Authentication";
+import Error from "@/components/Error";
+import Success from "@/components/Success";
+
 export default {
   data() {
     return {
       email: "",
       password: "",
-      error: ""
+      error: "",
+      success: false
     };
   },
+
+  components: { Error, Success },
+
   methods: {
+    //okay, 10 million ways to define function in javascript:
+    //this way, play functino, plus property
+    reset() {
+      this.error = "";
+      this.success = false;
+    },
+
     async register() {
+      this.reset();
       try {
         await Authentication.register({
           email: this.email,
           password: this.password
         });
+        this.success = true;
       } catch (error) {
         this.error = error.response.data.error;
       }
@@ -56,10 +74,3 @@ export default {
   }
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-.error {
-  color: red;
-}
-</style>

@@ -1,5 +1,18 @@
 const Joi = require('joi');
 
+function GetErrorMessage(key)
+{
+    switch (key)
+    {
+        case 'email':
+            return "email must be valid";
+        case 'password':
+            return "Invalid Password";
+        default:
+            return "Unkown error";
+    }
+}
+
 module.exports = {
     validate: (req, res, next) =>
     {
@@ -10,24 +23,15 @@ module.exports = {
         };
         const { error, value } = Joi.validate(req.body, schema);
 
-        if (error)
-        {
-            res.status(400);
-            switch (error.details[0].context.key)
-            {
-                case 'email':
-                    res.send({ error: "email must be valid" });
-                    break;
-                case 'password':
-                    res.send({ error: "Invalid Password" });
-                    break;
-                default:
-                    res.send({ error: "Unkown error" });
-            }
-        }
+        if (!error)
+            next();
         else
         {
-            next();
+            console.log(error);
+            const key = error.details[0].context.key;
+            const result = { key };
+            result.error = GetErrorMessage(key);
+            res.status(400).send(result);
         }
     }
 }

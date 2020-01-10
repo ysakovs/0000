@@ -11,7 +11,7 @@ app.use(stupidCors());
 app.use(morgan('tiny'));
 app.use(express.json());
 
-require('./routes')(app)
+routes(app);
 
 sequelize.sync({ force: false }) //change to true to drop database
     .then(() =>
