@@ -1,13 +1,17 @@
 <template>
   <div id="success">
-    <v-card-text v-if="good" transition="fade-transition" class="green white--text">asdfasfaasf</v-card-text>
+    <v-card-text
+      v-if="success"
+      transition="fade-transition"
+      class="green white--text"
+    >Account Successfully Created</v-card-text>
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    good: Boolean
+    success: Boolean
   }
 };
 </script>

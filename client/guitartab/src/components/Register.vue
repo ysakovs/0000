@@ -11,20 +11,14 @@
               <v-card-text>
                 <v-form>
                   <v-text-field v-model="email" label="email" name="email" type="text" />
-                  <v-text-field
-                    id="password"
-                    label="Password"
-                    name="password"
-                    type="password"
-                    v-model="password"
-                  />
+                  <v-text-field id="password" label="Password" type="password" v-model="password" />
                 </v-form>
               </v-card-text>
-              <Success :good="success" />
+              <Success :success="success" />
               <Error :errorMessage="error" />
               <v-card-actions>
                 <v-spacer />
-                <v-btn @click="register" color="primary">Register</v-btn>
+                <v-btn :disabled="diableBtn" @click="register" color="primary">Register</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
@@ -45,7 +39,8 @@ export default {
       email: "",
       password: "",
       error: "",
-      success: false
+      success: false,
+      diableBtn: false
     };
   },
 
@@ -61,6 +56,7 @@ export default {
 
     async register() {
       this.reset();
+      this.diableBtn = true;
       try {
         await Authentication.register({
           email: this.email,
@@ -70,6 +66,7 @@ export default {
       } catch (error) {
         this.error = error.response.data.error;
       }
+      this.diableBtn = false;
     }
   }
 };

@@ -27,7 +27,7 @@
               >{{error.toUpperCase()}}</v-card-text>
               <v-card-actions>
                 <v-spacer />
-                <v-btn @click="register" color="primary">Login</v-btn>
+                <v-btn @click="login" color="primary">Login</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
@@ -42,18 +42,20 @@ import Authentication from "@/services/Authentication";
 export default {
   data() {
     return {
-      email: "",
-      password: "",
+      email: "sap@gmail.com",
+      password: "12345678",
       error: ""
     };
   },
   methods: {
-    async register() {
+    async login() {
       try {
-        await Authentication.register({
+        const response = await Authentication.login({
           email: this.email,
           password: this.password
         });
+
+        this.$store.dispatch("setToken", response.data.token);
       } catch (error) {
         this.error = error.response.data.error;
       }
