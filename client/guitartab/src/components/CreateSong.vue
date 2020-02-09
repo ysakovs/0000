@@ -10,6 +10,7 @@
               v-model="field.data"
               :label="field.head"
               type="text"
+              :rules="[rules.required]"
             />
           </v-form>
         </v-card-text>
@@ -23,6 +24,7 @@
           :key="index"
           v-model="field.data"
           :label="field.head"
+          :rules="[rules.required]"
         />
       </Panel>
       <v-btn dark class="cyan" @click="create">Create Song</v-btn>
@@ -49,7 +51,8 @@ export default {
       songData: [
         { head: "Lyrics", data: "" },
         { head: "Tab", data: "" }
-      ]
+      ],
+      rules: { required: value => !!value || "Required." }
     };
   },
   methods: {

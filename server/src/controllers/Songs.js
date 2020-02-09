@@ -5,7 +5,13 @@ module.exports = {
     {
         try
         {
-            const result = await Song.findAll({ limit: 10 });
+            let limit = req.query.limit;
+            if (limit === undefined)
+                limit = 10;
+
+            console.log("The limit is: " + limit);
+
+            const result = await Song.findAll({ limit });
             res.status(200).send(result);
         } catch (error)
         {

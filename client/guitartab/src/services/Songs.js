@@ -2,9 +2,13 @@ import Api from './Api'
 
 export default
     {
-        async index()
+        async index(limit)
         {
-            const response = await Api().get('songs');
+            const response = await Api().get('songs', {
+                params: {
+                    limit
+                }
+            });
             return response.data;
         },
         async create(song)

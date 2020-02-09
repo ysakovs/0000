@@ -13,6 +13,12 @@ app.use(express.json());
 
 routes(app);
 
+if (process.env.NODE_DEV === 'production')
+{
+    app.use(express.static(__dirname + '/public/'));
+    app.get(/.*/, (req, res) => res.sendFile(__dirname + '/public/index.html'));
+}
+
 sequelize.sync({ force: false }) //change to true to drop database
     .then(() =>
     {
